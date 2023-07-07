@@ -1,2 +1,2 @@
 # LegalexBackEnd
-Server for applicatopn for business
+Server for applicaton for business
