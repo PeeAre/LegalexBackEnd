@@ -6,9 +6,11 @@ public sealed class ApplicationContext : DbContext
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options)
     {
+        if (Database.GetPendingMigrations().Any())
+        {
+            Database.Migrate();
+        }
+
         Database.EnsureCreated();
-    }
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
     }
 }

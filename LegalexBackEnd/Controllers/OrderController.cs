@@ -46,7 +46,7 @@ namespace LegalexBackEnd.Controllers
             catch (Exception ex)
             {
                 await _appContext.SaveChangesAsync();
-                return BadRequest("Failed to send notification");
+                return BadRequest($"Failed to send notification: {ex.Message}");
             }
 
             await _appContext.SaveChangesAsync();
