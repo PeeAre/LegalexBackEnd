@@ -22,7 +22,9 @@ namespace LegalexBackEnd
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin());
+            app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin()
+                                                              .AllowAnyMethod()
+                                                              .AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();

@@ -1,4 +1,5 @@
 ﻿using LegalexBackEnd.Models.Order;
+using LegalexBackEnd.Models.Order.Types;
 using LegalexBackEnd.Services.Senders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,9 +40,30 @@ namespace LegalexBackEnd.Controllers
 
             try
             {
+                string service = string.Empty;
+                switch (model.Service)
+                {
+                    case Service.NonSelected:
+                        service = "Не выбран";
+                        break;
+                    case Service.Legal:
+                        service = "Юридическая";
+                        break;
+                    case Service.Finance:
+                        service = "Финансовая";
+                        break;
+                    case Service.Accounting:
+                        service = "Бухгалтерская";
+                        break;
+                    case Service.HR:
+                        service = "Кадровая";
+                        break;
+                }
                 var type = model.Type == Entity.Legal ? "Юридическое лицо" : "Физическое лицо";
+                var email = model.Email != string.Empty ? $"\n\n*Электронная почта:* {model.Email}" : string.Empty;
                 await _telegramSender.SendAsync(
-                    $"*Тип заявки:*  {type}\n\n*Имя:* {model.Name}\n\n*Номер телефона:*  {model.Phone}\n\n*Описание:*  {model.Description}");
+                    $"*Тип заявки:*  {type}\n\n*Тип услуги:* {service}\n\n*Имя:* {model.Name}\n\n*Номер телефона:* " +
+                    $"{model.Phone}{email}\n\n*Описание:*  {model.Description}");
             }
             catch (Exception ex)
             {

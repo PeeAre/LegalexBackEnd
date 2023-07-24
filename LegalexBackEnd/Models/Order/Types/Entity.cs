@@ -1,4 +1,4 @@
-﻿namespace LegalexBackEnd.Models.Order
+﻿namespace LegalexBackEnd.Models.Order.Types
 {
     public enum Entity
     {
