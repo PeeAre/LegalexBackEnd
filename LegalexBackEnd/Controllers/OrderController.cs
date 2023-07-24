@@ -47,23 +47,29 @@ namespace LegalexBackEnd.Controllers
                         service = "Не выбран";
                         break;
                     case Service.Legal:
-                        service = "Юридическая";
+                        service = "Юридическая услуга";
                         break;
                     case Service.Finance:
-                        service = "Финансовая";
+                        service = "Услуга экономиста";
                         break;
                     case Service.Accounting:
-                        service = "Бухгалтерская";
+                        service = "Бухгалтерская услуга";
+                        break;
+                    case Service.HRSupport:
+                        service = "Услуга кадрового специалиста";
                         break;
                     case Service.HR:
-                        service = "Кадровая";
+                        service = "HR услуга";
                         break;
                 }
                 var type = model.Type == Entity.Legal ? "Юридическое лицо" : "Физическое лицо";
                 var email = model.Email != string.Empty ? $"\n\n*Электронная почта:* {model.Email}" : string.Empty;
                 await _telegramSender.SendAsync(
-                    $"*Тип заявки:*  {type}\n\n*Тип услуги:* {service}\n\n*Имя:* {model.Name}\n\n*Номер телефона:* " +
-                    $"{model.Phone}{email}\n\n*Описание:*  {model.Description}");
+                    $"*Тип заявки:*  {type}\n\n" +
+                    $"*Тип услуги:* {service}\n\n" +
+                    $"*Имя:* {model.Name}\n\n" +
+                    $"*Номер телефона:* " + $"{model.Phone}{email}\n\n" +
+                    $"*Описание:*  {model.Description}");
             }
             catch (Exception ex)
             {

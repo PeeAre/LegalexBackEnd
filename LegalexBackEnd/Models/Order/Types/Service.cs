@@ -6,6 +6,7 @@
         Legal,
         Finance,
         Accounting,
+        HRSupport,
         HR
     }
 }
